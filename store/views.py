@@ -7,9 +7,9 @@ from rest_framework.views import APIView
 from rest_framework.mixins import ListModelMixin,CreateModelMixin
 from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
-from .models import Product,Collection,OrderItem
+from .models import Product,Collection,OrderItem,Review
 from django.db.models import Count
-from .serializers import ProductSerializer,CollectionSerializer
+from .serializers import ProductSerializer,CollectionSerializer,ReviewSerializer
 
 class ProductViewSet(ModelViewSet):
     queryset=Product.objects.all()
@@ -35,11 +35,9 @@ class CollectionViewSet(ModelViewSet):
             return Response({'error':"product cannot be deleted"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         return super().destroy(request, *args, **kwargs)
 
-    # def delete(self,request,pk):
-    #     collection=get_object_or_404(Collection, pk=pk)
-        
-    #     collection.delete()
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
+class ReviewViewSet(ModelViewSet):
+    queryset=Review.objects.all()
+    serializer_class=ReviewSerializer
 
     
     
